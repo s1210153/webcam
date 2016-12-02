@@ -1,3 +1,8 @@
+var buttons = [];////
+var cent_X = document.getElementById('cent_X'), cent_Y;
+var smooth_X, smooth_Y;
+
+
 function MovingAverage(length) {
 	// Max length
 	this.m = length;
@@ -45,9 +50,9 @@ function MotionDetector() {
 
 	var videoContext = this.videoCanvas.getContext( '2d' );
 	
-	var layer2Canvas = document.createElement( 'canvas' );
-	layer2Canvas.width = PIXELS_HORIZONTAL;
-	layer2Canvas.height = PIXELS_VERTICAL;
+	var layer2Canvas = document.getElementById( 'layer2' );
+	//layer2Canvas.width = PIXELS_HORIZONTAL;
+	//layer2Canvas.height = PIXELS_VERTICAL;
 	var layer2Context = layer2Canvas.getContext( '2d' );
 	
 	var blendCanvas  = document.createElement( 'canvas' );
@@ -57,8 +62,24 @@ function MotionDetector() {
 
 	var motionDetector;
 
-
 	var lastImageData;
+	
+	////
+	var button1 = new Image();
+	button1.src ="Image/SquareRed.png";
+	var buttonData1 = { name:"red", image:button1, x:10, y:10, w:32, h:32 };
+	buttons.push( buttonData1 );
+	
+	var button2 = new Image();
+	button2.src ="Image/SquareGreen.png";
+	var buttonData2 = { name:"green", image:button2, x:10, y:50, w:32, h:32 };
+	buttons.push( buttonData2 );
+	
+	var button3 = new Image();
+	button3.src ="Image/SquareBlue.png";
+	var buttonData3 = { name:"blue", image:button3, x:10, y:90, w:32, h:32 };
+	buttons.push( buttonData3 );
+	
 
 	////
 	var FizzyText = function() {
@@ -91,6 +112,7 @@ function MotionDetector() {
 	this.avgX.update(PIXELS_HORIZONTAL/2);
 	this.avgY.update(PIXELS_VERTICAL/2);
 	
+	////
 	window.onload = function() {
  　　　var _that = this;
  　　　text = new FizzyText();
@@ -112,8 +134,11 @@ function MotionDetector() {
 				      || navigator.mozGetUserMedia;
 		window.URL = window.URL || window.webkitURL;
 
-		////video = document.createElement('video');
+
+		//video = document.createElement('video');
 		video = document.getElementById('video');
+
+
 		
 		if (!navigator.getUserMedia) {
 			console.log("video not available");
@@ -143,7 +168,7 @@ function MotionDetector() {
 		motionDetector.start();
 	}
 
-
+    //
 	MotionDetector.prototype.analyze = function() {
 		//console.log('analyze');
 		if(window.avg){
@@ -155,16 +180,13 @@ function MotionDetector() {
 
 		videoContext.drawImage( video, 0, 0, this.videoCanvas.width, this.videoCanvas.height );
 
-
-
-        ////
-        /*
-        for ( var i = 0; i < buttons.length; i++ ) {
-	        layer2Context.drawImage( buttons[i].image, buttons[i].x, buttons[i].y, buttons[i].w, buttons[i].h );
-		} 
-        */
-
-
+		////
+        for ( var i = 0; i < buttons.length; i++ ){
+        	
+			layer2Context.drawImage( buttons[i].image, buttons[i].x, buttons[i].y, buttons[i].w, buttons[i].h );
+			
+			//console.log(buttons[i].image + '  '+ buttons[i].x + '  '+ buttons[i].y + '  '+ buttons[i].w + '  '+ buttons[i].h);
+		}
 
 		// get current webcam image data
 		var sourceData = videoContext.getImageData(0, 0, width, height);
@@ -256,12 +278,22 @@ function MotionDetector() {
 		centroidX = centroidX / sum;
 		centroidY = centroidY / sum;
 
+		cent_X = centroidX;
+		cent_Y = centroidY;
+
 	    	//console.log('X: ' + centroidX);
+	    	//console.log('Y: ' + centroidY);
+
+			console.log('X: ' + cent_X);
 	    	//console.log('Y: ' + centroidY);
 
 		// smooth with moving average
 		this.avgX.update(centroidX);
 		this.avgY.update(centroidY);
+		
+		//console.log('X: ' +this.avgX.update(centroidX));
+		//console.log('Y: ' +this.avgY.update(centroidY));
+		
 	    }
 
 	}

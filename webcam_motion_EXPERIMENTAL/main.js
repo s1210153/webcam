@@ -3,7 +3,7 @@ var g_camera, g_scene, g_renderer;
 var g_mesh;
 var g_motionDetector;
 
-var buttons = [];////
+//var buttons = [];////
 
 
 function init() {
@@ -13,6 +13,7 @@ function init() {
 	var width = window.innerWidth;
 	g_camera = new THREE.PerspectiveCamera(50, width / height, 1, 1000);
 	g_scene.add(g_camera);
+
 
 	g_renderer = new THREE.WebGLRenderer({
 		alpha : true,
@@ -51,7 +52,7 @@ function init() {
 	createFloor();
 	createMesh();
 	
-	createImage();////
+	//createImage();////
 	
 }
 
@@ -106,6 +107,7 @@ function animate() {
 
 
 ////
+/*
 function createImage() {
 	
 	var button1 = new Image();
@@ -124,3 +126,4 @@ function createImage() {
 	buttons.push( buttonData3 );
 	
 }
+*/

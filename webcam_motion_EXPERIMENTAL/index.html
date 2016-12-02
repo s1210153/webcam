@@ -5,14 +5,29 @@
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	</head>
 
-    <video id="video" style="position: absolute; width:320px; height:240px; left:1000px; top:240px; float:right"></video>
+    <div id="canvasLayers" style="position: absolute; width:320px; height:240px; left:1000px; top:240px; float:right;">
+    <video id="video" width="320" height="240" style="z-index: 1; position: absolute; transform: rotateY(180deg);"></video>
+    <canvas id="layer2" width="320" height="240" style ="z-index: 1; position: absolute;"></canvas>
+    </div>
     
-    <canvas id="canvas" width="320" height="240" style="position: absolute; position: absolute; opacity:0.5;"></canvas>
-    
-
 　　<script type="text/javascript" src="dat.gui.js"></script>
 　
-
+　
+    <style>
+    p {
+    	position:absolute;
+    	width: 200px;
+    	bottom: 0;
+    	right: 0;
+    	background: #CCC;
+	}
+	</style>
+	<p> &nbsp; Identified Points : <br>
+		&nbsp; Centroid_X :  <br>
+		&nbsp; Centroid_Y :  <br>
+		&nbsp; Smoothed Centroid : 	
+	</p>
+  
 	<body class="main">
         
 		<div id="drawingArea"></div>
